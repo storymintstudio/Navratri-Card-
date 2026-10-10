@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>शुभ नवरात्रि · Nav Durga</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Yatra+One&family=Cinzel:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="navratri.css"></head><body>
+<canvas id="p"></canvas>
+<a class="wm" href="https://instagram.com/storymint.studio" target="_blank" rel="noopener">@storymint.studio</a>
+
+<section class="hero">
+<div class="splash"></div>
+<svg class="mandala" viewBox="0 0 200 200" fill="none" stroke="#f6b93b" stroke-width=".4"><g id="m"></g></svg>
+<div class="sub">॥ जय माता दी ॥</div>
+<h1 class="hi"><span><b>शुभ</b></span><b style="animation-delay:.3s">नवरात्रि</b></h1>
+<p class="bless">May Maa Durga bless you and your family with happiness, peace, strength and prosperity</p>
+<div class="cd" id="cd"><div><b>--</b><small>DAYS</small></div><div><b>--</b><small>HRS</small></div><div><b>--</b><small>MIN</small></div><div><b>--</b><small>SEC</small></div></div>
+<div class="row"><a href="#roop"><button class="btn">मिलिए नौ रूपों से</button></a><a href="#card"><button class="btn g">Send Wishes</button></a></div>
+<svg class="diya" viewBox="0 0 60 60" id="hd"></svg>
+</section>
+
+<section id="roop" class="rv">
+<h2 class="hi">नवदुर्गा · नौ रूप</h2>
+<div class="lead">TAP A DAY · SWIPE THE NINE FORMS</div>
+<div class="tabs" id="tabs"></div>
+<div class="card" id="card9"></div>
+</section>
+
+<section class="rv">
+<h2 class="hi">दीप जलाइए</h2>
+<div class="lead">TAP TO LIGHT A DIYA FOR MAA</div>
+<div class="diyas" id="dys"></div>
+<div class="cnt" id="cnt">0 / 9 diyas lit</div>
+</section>
+
+<section class="rv">
+<h2 class="hi">डांडिया बीट</h2>
+<div class="lead">TAP WHEN THE STICK HITS THE RING</div>
+<canvas id="gm" width="340" height="340"></canvas>
+<div class="hud"><span id="sc">SCORE 0</span><span id="cb">COMBO 0</span><span id="tm">30s</span></div>
+<div class="row"><button class="btn" id="go">PLAY</button><button class="btn g" id="gs" style="display:none">SHARE SCORE</button></div>
+</section>
+
+<section id="card" class="rv">
+<h2 class="hi">अपना शुभकामना कार्ड</h2>
+<div class="lead">MAKE · DOWNLOAD · SHARE</div>
+<div class="gen">
+<input id="nm" maxlength="24" placeholder="Your name (optional)">
+<canvas id="cv" width="1080" height="1350"></canvas>
+<div class="row"><button class="btn" id="dl">DOWNLOAD</button><button class="btn g" id="sh">SHARE</button></div>
+</div>
+</section>
+<footer>॥ या देवी सर्वभूतेषु शक्तिरूपेण संस्थिता ॥<br><br>MADE WITH DEVOTION BY <a href="https://instagram.com/storymint.studio" style="color:var(--gold)">@STORYMINT.STUDIO</a></footer>
+
+<script>
+const R=[
+["शैलपुत्री","Shailputri","Daughter of the Himalaya, who rides Nandi the bull and holds a trident and lotus. She is the first form: strength, stability and a fresh start.","ॐ देवी शैलपुत्र्यै नमः","#d4141c","🔱"],
+["ब्रह्मचारिणी","Brahmacharini","The form of penance and devotion, with a rosary and kamandal. She teaches patience and discipline on the path to a goal.","ॐ देवी ब्रह्मचारिण्यै नमः","#e8590c","📿"],
+["चंद्रघंटा","Chandraghanta","Crescent moon on her forehead like a bell, riding a tiger. She brings courage, grace and calm to the fearless.","ॐ देवी चन्द्रघण्टायै नमः","#c9a227","🔔"],
+["कूष्मांडा","Kushmanda","With a gentle smile she created the cosmos. Eight arms, a radiant glow: she gives energy, health and light.","ॐ देवी कूष्माण्डायै नमः","#e8871e","☀️"],
+["स्कंदमाता","Skandamata","Mother of Skanda (Kartikeya), seated on a lotus with the child in her lap. She is the form of motherly love.","ॐ देवी स्कन्दमातायै नमः","#d9a441","🪷"],
+["कात्यायनी","Katyayani","The warrior Goddess, slayer of Mahishasura, riding a lion. She is courage, victory and righteous power.","ॐ देवी कात्यायन्यै नमः","#b5121b","⚔️"],
+["कालरात्रि","Kalaratri","The fiercest form, who destroys darkness and fear. Fierce in look, yet always a protector of her devotees.","ॐ देवी कालरात्र्यै नमः","#5b2a86","🌑"],
+["महागौरी","Mahagauri","Serene, pure and radiant as the moon, riding a white bull. She washes away sorrow and brings peace.","ॐ देवी महागौर्यै नमः","#c9c4d6","🕊️"],
+["सिद्धिदात्री","Siddhidatri","The giver of siddhis, seated on a lotus. The ninth form fulfils wishes and completes the journey.","ॐ देवी सिद्धिदात्र्यै नमः","#0f8f8a","🪔"]];
+const START=new Date('2026-10-11T00:00:00+05:30'),$=s=>document.querySelector(s);
+const day=()=>Math.floor((Date.now()-START)/864e5);
+// mandala
+$('#m').innerHTML=[...Array(24)].map((_,i)=>`<ellipse cx="100" cy="50" rx="9" ry="42" transform="rotate(${i*15} 100 100)"/>`).join('')+'<circle cx="100" cy="100" r="30"/><circle cx="100" cy="100" r="60"/>';
+// diya svg
+const DY=`<path class="fl" d="M30 10c8 8 7 16 0 22-7-6-8-14 0-22z" fill="#ffd36b"/><path d="M8 36h44c0 10-9 16-22 16S8 46 8 36z" fill="#e0902a" stroke="#b86a14"/>`;
+$('#hd').innerHTML=DY;$('#hd').onclick=()=>burst();
+// countdown
+setInterval(()=>{let d=START-Date.now(),t=d>0;if(!t)d=START.getTime()+9*864e5-Date.now();if(d<0)d=0;
+const v=[d/864e5,d/36e5%24,d/6e4%60,d/1e3%60].map(x=>String(Math.floor(x)).padStart(2,'0'));
+document.querySelectorAll('#cd b').forEach((e,i)=>e.textContent=v[i]);
+$('#cd').title=t?'Until Navratri begins':'Until Navratri ends'},1000);
+// illustrated roop art
+const V=['Vahan: Nandi (bull)','Walks barefoot with devotion','Vahan: Tiger','Vahan: Lion','Vahan: Lion','Vahan: Lion','Vahan: Donkey','Vahan: White bull','Seated on a lotus'];
+const S=(i,x,y)=>[
+`<path d="M${x} ${y+22}V${y-20}M${x-9} ${y-12}V${y-20}M${x+9} ${y-12}V${y-20}M${x-9} ${y-12}Q${x} ${y-2} ${x+9} ${y-12}" stroke="#f6b93b" stroke-width="3" fill="none"/>`,
+[...Array(8)].map((_,k)=>`<circle cx="${x+11*Math.cos(k*.785)}" cy="${y+11*Math.sin(k*.785)}" r="2.6" fill="#f6b93b"/>`).join(''),
+`<path d="M${x-10} ${y+8}Q${x-10} ${y-12} ${x} ${y-12}Q${x+10} ${y-12} ${x+10} ${y+8}Z" fill="#f6b93b"/><circle cx="${x}" cy="${y+11}" r="3" fill="#f6b93b"/>`,
+`<circle cx="${x}" cy="${y}" r="8" fill="#ffd36b"/>`+[...Array(8)].map((_,k)=>`<path d="M${x+11*Math.cos(k*.785)} ${y+11*Math.sin(k*.785)}L${x+17*Math.cos(k*.785)} ${y+17*Math.sin(k*.785)}" stroke="#ffd36b" stroke-width="2"/>`).join(''),
+`<ellipse cx="${x}" cy="${y-8}" rx="6" ry="11" fill="#ff8fb1"/><ellipse cx="${x}" cy="${y-8}" rx="6" ry="11" fill="#ff8fb1" transform="rotate(40 ${x} ${y})"/>`,
+`<path d="M${x} ${y+20}V${y-22}M${x-8} ${y-8}H${x+8}" stroke="#e8e8f0" stroke-width="4"/>`,
+`<path d="M${x} ${y-14}L${x+4} ${y-4}L${x+14} ${y-4}L${x+6} ${y+3}L${x+9} ${y+13}L${x} ${y+7}L${x-9} ${y+13}L${x-6} ${y+3}L${x-14} ${y-4}L${x-4} ${y-4}Z" fill="#ddd"/>`,
+`<path d="M${x-9} ${y-11}H${x+9}L${x} ${y}L${x+9} ${y+11}H${x-9}L${x} ${y}Z" fill="#c9a227"/>`,
+`<circle cx="${x}" cy="${y}" r="11" fill="none" stroke="#f6b93b" stroke-width="3"/>`+[0,1,2,3].map(k=>`<path d="M${x} ${y-11}V${y+11}" stroke="#f6b93b" stroke-width="1.5" transform="rotate(${k*45} ${x} ${y})"/>`).join('')
+][i];
+const art=(i,c)=>{const N=[2,2,4,8,4,4,4,2,4][i],H=[[62,122],[138,122],[46,92],[154,92],[60,58],[140,58],[80,42],[120,42]].slice(0,N),sk='#f3b57a',rb=i==7?'#f4f1f7':c,dk=i==6;
+let s=`<circle cx="100" cy="76" r="56" fill="${dk?'#000':'#ffd36b'}" opacity=".3"/><circle cx="100" cy="76" r="56" fill="none" stroke="#f6b93b" stroke-width="2" stroke-dasharray="3 5"/>`;
+H.forEach(([x,y])=>s+=`<path d="M100 92Q${(100+x)/2} ${y+22} ${x} ${y}" stroke="${sk}" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="4" fill="none" stroke="#f6b93b"/>`);
+s+=`<path d="M100 70C70 100 56 150 46 190H154C144 150 130 100 100 70Z" fill="${rb}" stroke="#0004"/><path d="M100 70C112 110 120 150 124 190" stroke="#f6b93b" stroke-width="4" fill="none"/>`;
+s+=`<circle cx="100" cy="60" r="17" fill="${sk}"/><path d="M82 60Q82 38 100 38Q118 38 118 60Q112 48 100 48Q88 48 82 60Z" fill="#1a0a06"/>`+(dk?'<path d="M82 60L68 92M118 60L132 92M86 44L72 28M114 44L128 28" stroke="#1a0a06" stroke-width="5" stroke-linecap="round"/>':'')+`<path d="M84 42L88 26 94 38 100 20 106 38 112 26 116 42Z" fill="#f6b93b"/><path d="M91 60q4-3 8 0M101 60q4-3 8 0" stroke="#3a0d08" fill="none"/><circle cx="100" cy="52" r="2.6" fill="#d4141c"/><path d="M95 69q5 3 10 0" stroke="#b5121b" fill="none"/>`;
+if(i==2)s+='<path d="M90 40a10 10 0 0 0 20 0a8 8 0 0 1 -20 0z" fill="#fff"/>';
+if(i==4)s+=`<circle cx="100" cy="148" r="8" fill="${sk}"/><rect x="92" y="155" width="16" height="16" rx="6" fill="#f6b93b"/>`;
+s+=S(i,...H[1])+`<g transform="translate(${H[0][0]-100} ${H[0][1]-122+4})">${S(4,100,122)}</g>`;
+s+=[0,1,2,3,4].map(k=>`<ellipse cx="${60+k*20}" cy="192" rx="22" ry="9" fill="#ffb3c7" stroke="#fff" opacity=".9"/>`).join('');
+return s};
+// roop
+const tabs=$('#tabs'),c9=$('#card9');
+R.forEach((r,i)=>{const b=document.createElement('button');b.textContent=i+1;if(day()===i)b.classList.add('today');b.onclick=()=>show(i);tabs.append(b)});
+function show(i){const r=R[i];document.documentElement.style.setProperty('--h',r[4]);
+tabs.querySelectorAll('button').forEach((b,j)=>b.classList.toggle('on',j===i));
+tabs.children[i].scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+c9.style.background=`linear-gradient(160deg,${r[4]},#3a0d08 130%)`;
+c9.innerHTML=`<div class="in"><svg class="ico" viewBox="0 0 200 204">${art(i,r[4])}</svg><div class="d">DAY ${i+1}${day()===i?' · TODAY':''}</div><h3 class="hi">${r[0]}</h3><div class="en">${r[1]} · ${V[i]}</div><p>${r[2]}</p><span class="mantra hi">${r[3]}</span><div class="row"><button class="btn g" onclick="show(${(i+8)%9})">← PREV</button><button class="btn" onclick="show(${(i+1)%9})">NEXT →</button></div></div>`;}
+show(Math.min(Math.max(day(),0),8));
+// diyas
+let lit=0;const dys=$('#dys');
+for(let i=0;i<9;i++){const d=document.createElement('div');d.className='dy';d.innerHTML=`<svg viewBox="0 0 60 60">${DY}</svg>`;
+d.onclick=()=>{if(d.classList.toggle('lit'))lit++;else lit--;$('#cnt').textContent=lit+' / 9 diyas lit'+(lit==9?' · जय माता दी 🙏':'');if(lit==9)burst()};dys.append(d)}
+// reveal
+const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('on')),{threshold:.15});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+// petals
+const cv=$('#p'),x=cv.getContext('2d');let W,H,P=[];
+const rs=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight};rs();addEventListener('resize',rs);
+const mk=(y,b)=>({x:Math.random()*W,y:y??-20,s:4+Math.random()*7,v:.6+Math.random()*1.4,w:Math.random()*6,c:['#ff9f1c','#ffbf00','#e8590c','#d4141c'][Math.random()*4|0],vx:b?(Math.random()-.5)*8:0,vy:b?-Math.random()*7:0});
+for(let i=0;i<28;i++)P.push(mk(Math.random()*H));
+function burst(){for(let i=0;i<60;i++){const p=mk(H*.6,1);p.x=W/2;p.life=1;P.push(p)}}
+(function f(){x.clearRect(0,0,W,H);P.forEach((p,i)=>{p.w+=.03;p.x+=Math.sin(p.w)*.8+p.vx;p.y+=p.v+p.vy;p.vy+=p.life?.15:0;p.vx*=.98;
+x.save();x.translate(p.x,p.y);x.rotate(p.w);x.fillStyle=p.c;x.globalAlpha=.8;x.beginPath();x.ellipse(0,0,p.s,p.s/2.2,0,0,7);x.fill();x.restore();
+if(p.y>H+20){if(p.life)P.splice(i,1);else Object.assign(p,mk())}});requestAnimationFrame(f)})();
+// greeting card
+const g=$('#cv'),c=g.getContext('2d');
+function draw(){const r=R[Math.min(Math.max(day(),0),8)],h=getComputedStyle(document.documentElement).getPropertyValue('--h').trim()||'#d4141c';
+let gr=c.createLinearGradient(0,0,0,1350);gr.addColorStop(0,'#4a1a0c');gr.addColorStop(1,'#1a0805');c.fillStyle=gr;c.fillRect(0,0,1080,1350);
+let rg=c.createRadialGradient(540,700,20,540,700,520);rg.addColorStop(0,h);rg.addColorStop(1,'transparent');c.fillStyle=rg;c.fillRect(0,0,1080,1350);
+c.textAlign='center';c.fillStyle='#fff';c.font='130px "Tiro Devanagari Hindi",serif';c.fillText('शुभ',540,420);
+c.font='250px "Yatra One","Tiro Devanagari Hindi",serif';c.fillText('नवरात्रि',540,660);
+c.font='36px Georgia';c.fillStyle='#fff';['May Maa Durga bless you and your family','with happiness, peace, strength, and prosperity.'].forEach((t,i)=>c.fillText(t,540,800+i*52));
+c.font='160px serif';c.fillText('🪔',540,1050);
+const n=$('#nm').value.trim();c.fillStyle='#f6b93b';c.font='700 40px Cinzel,serif';c.fillText(n?'— with love, '+n:'॥ जय माता दी ॥',540,1220);
+c.fillStyle='#0008';c.beginPath();c.roundRect(330,1262,420,54,27);c.fill();c.fillStyle='#fff';c.font='600 28px Cinzel,serif';c.fillText('@storymint.studio',540,1299);}
+document.fonts.ready.then(draw);$('#nm').oninput=draw;
+$('#dl').onclick=()=>{draw();const a=document.createElement('a');a.href=g.toDataURL('image/png');a.download='shubh-navratri.png';a.click()};
+$('#sh').onclick=async()=>{draw();g.toBlob(async b=>{const f=new File([b],'shubh-navratri.png',{type:'image/png'});
+try{if(navigator.canShare&&navigator.canShare({files:[f]}))await navigator.share({files:[f],text:'शुभ नवरात्रि! 🙏'});else await navigator.share({text:'शुभ नवरात्रि! 🙏 '+location.href})}catch(e){}})};
+// dandiya beat game
+const gm=$('#gm'),g2=gm.getContext('2d'),RR=70;let NT=[],sc=0,cb=0,tl=30,on=0,lt=0,sp=0,hs=0,fx=[],ac;
+try{hs=+localStorage.getItem('db')||0}catch(e){}
+const snd=f=>{try{ac=ac||new AudioContext();const o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.3,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.15);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.15)}catch(e){}};
+$('#go').onclick=()=>{if(on)return;NT=[];sc=cb=0;tl=30;on=1;sp=0;$('#go').textContent='PLAYING…';$('#gs').style.display='none'};
+gm.onpointerdown=e=>{if(!on)return;let b=null;NT.forEach(n=>{const d=Math.abs(n.r-RR);if(d<26&&(!b||d<Math.abs(b.r-RR)))b=n});
+if(b){NT.splice(NT.indexOf(b),1);cb++;sc+=10+Math.min(cb,10)*2;fx.push({x:170+Math.cos(b.a)*RR,y:170+Math.sin(b.a)*RR,t:0});snd(480+Math.min(cb,12)*25)}else{cb=0;snd(150)}};
+$('#gs').onclick=async()=>{const t=`I scored ${sc} in Dandiya Beat 🪘 Can you beat me? @storymint.studio`;try{await navigator.share({text:t,url:location.href})}catch(e){}};
+function gl(now){const dt=Math.min((now-lt)/1000,.05);lt=now;
+if(on){tl-=dt;sp-=dt;if(sp<=0){sp=.5+Math.random()*.5;NT.push({a:Math.random()*6.283,r:165})}
+NT.forEach(n=>n.r-=dt*(75+(30-tl)*3));if(NT.some(n=>n.r<RR-26)){cb=0;NT=NT.filter(n=>n.r>=RR-26)}
+if(tl<=0){on=0;tl=0;if(sc>hs){hs=sc;try{localStorage.setItem('db',hs)}catch(e){}}$('#go').textContent='PLAY AGAIN';$('#gs').style.display=''}}
+g2.clearRect(0,0,340,340);g2.lineWidth=4;g2.strokeStyle='#f6b93b';g2.shadowColor='#f6b93b';g2.shadowBlur=on?14+Math.sin(now/120)*8:6;g2.beginPath();g2.arc(170,170,RR,0,7);g2.stroke();g2.shadowBlur=0;
+g2.font='46px serif';g2.textAlign='center';g2.fillText('🪘',170,186);
+NT.forEach(n=>{g2.save();g2.translate(170+Math.cos(n.a)*n.r,170+Math.sin(n.a)*n.r);g2.rotate(n.a+Math.PI/2);g2.fillStyle='#d9a441';g2.fillRect(-3,-16,6,32);g2.fillStyle='#d4141c';g2.fillRect(-3,-16,6,6);g2.fillRect(-3,10,6,6);g2.restore()});
+fx=fx.filter(f=>(f.t+=dt)<.5);fx.forEach(f=>{g2.globalAlpha=1-f.t*2;g2.strokeStyle='#fff';g2.beginPath();g2.arc(f.x,f.y,10+f.t*60,0,7);g2.stroke();g2.globalAlpha=1});
+if(!on&&sc){g2.fillStyle='#000a';g2.fillRect(40,130,260,80);g2.fillStyle='#fff';g2.font='700 22px Cinzel,serif';g2.fillText('SCORE '+sc,170,163);g2.font='14px Cinzel,serif';g2.fillText('BEST '+hs,170,190)}
+$('#sc').textContent='SCORE '+sc;$('#cb').textContent='COMBO '+cb;$('#tm').textContent=Math.ceil(tl)+'s';requestAnimationFrame(gl)}
+requestAnimationFrame(gl);
+</script></body></html>
