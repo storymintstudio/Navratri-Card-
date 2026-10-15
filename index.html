@@ -156,4 +156,500 @@ fx=fx.filter(f=>(f.t+=dt)<.5);fx.forEach(f=>{g2.globalAlpha=1-f.t*2;g2.strokeSty
 if(!on&&sc){g2.fillStyle='#000a';g2.fillRect(40,130,260,80);g2.fillStyle='#fff';g2.font='700 22px Cinzel,serif';g2.fillText('SCORE '+sc,170,163);g2.font='14px Cinzel,serif';g2.fillText('BEST '+hs,170,190)}
 $('#sc').textContent='SCORE '+sc;$('#cb').textContent='COMBO '+cb;$('#tm').textContent=Math.ceil(tl)+'s';requestAnimationFrame(gl)}
 requestAnimationFrame(gl);
-</script></body></html>
+</script>
+
+<!-- STORYMINT STUDIO: CINEMATIC NAVRATRI INTRO -->
+<style>
+  #sm-intro, #sm-intro * { box-sizing: border-box; }
+
+  #sm-intro {
+    --sm-gold: #ffdc8a;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    isolation: isolate;
+    color: #fff5dc;
+    background:
+      radial-gradient(ellipse at 50% 45%, #8c1c28 0%, #480b19 40%, #16030c 100%);
+    font-family: Georgia, "Times New Roman", serif;
+    transition: opacity .9s ease, visibility .9s ease;
+  }
+
+  #sm-intro.sm-exit {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  #sm-intro .sm-glow {
+    position: absolute;
+    width: min(90vw, 620px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+      #ffcf7033 0%, #ff8c2515 35%, transparent 70%);
+    animation: sm-breathe 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  #sm-intro .sm-mandala {
+    position: absolute;
+    width: min(88vw, 570px);
+    aspect-ratio: 1;
+    border: 1px solid #f4c66a66;
+    border-radius: 50%;
+    opacity: .65;
+    background: repeating-conic-gradient(
+      from 0deg,
+      transparent 0deg 8deg,
+      #f8ce7844 8.5deg 9deg,
+      transparent 9.5deg 15deg
+    );
+    -webkit-mask-image: radial-gradient(
+      circle, transparent 0 18%, #000 19% 21%,
+      transparent 22% 27%, #000 28% 29%,
+      transparent 30% 35%, #000 36% 37%,
+      transparent 38% 44%, #000 45% 46%,
+      transparent 47% 52%, #000 53% 54%,
+      transparent 55% 61%, #000 62% 63%,
+      transparent 64% 70%, #000 71% 72%,
+      transparent 73%
+    );
+    mask-image: radial-gradient(
+      circle, transparent 0 18%, #000 19% 21%,
+      transparent 22% 27%, #000 28% 29%,
+      transparent 30% 35%, #000 36% 37%,
+      transparent 38% 44%, #000 45% 46%,
+      transparent 47% 52%, #000 53% 54%,
+      transparent 55% 61%, #000 62% 63%,
+      transparent 64% 70%, #000 71% 72%,
+      transparent 73%
+    );
+    animation: sm-spin 65s linear infinite;
+    pointer-events: none;
+  }
+
+  #sm-intro .sm-ring {
+    position: absolute;
+    width: min(66vw, 420px);
+    aspect-ratio: 1;
+    border: 1px solid #ffe1a355;
+    border-radius: 50%;
+    box-shadow: 0 0 45px #ffbd4420, inset 0 0 35px #ffbd4410;
+    animation: sm-ring 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  #sm-intro .sm-content {
+    position: relative;
+    z-index: 3;
+    width: min(90%, 480px);
+    padding: 24px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #sm-intro .sm-brand {
+    margin: 0 0 32px;
+    color: #f8d69b;
+    font: 600 10px/1.5 Arial, sans-serif;
+    letter-spacing: .42em;
+    text-transform: uppercase;
+    animation: sm-rise 1s .1s both;
+  }
+
+  #sm-intro .sm-eyebrow {
+    margin: 0 0 14px;
+    color: #eecb91;
+    font: 10px/1.5 Arial, sans-serif;
+    letter-spacing: .34em;
+    text-transform: uppercase;
+    animation: sm-rise 1s .3s both;
+  }
+
+  #sm-intro .sm-title {
+    margin: 0;
+    color: var(--sm-gold);
+    font-size: clamp(35px, 8.5vw, 58px);
+    line-height: 1.18;
+    font-weight: 500;
+    text-shadow: 0 0 28px #ffbd4d55;
+    animation: sm-rise 1s .45s both;
+  }
+
+  #sm-intro .sm-subtitle {
+    margin: 12px 0 0;
+    color: #fff0d5;
+    font-size: clamp(14px, 3.5vw, 17px);
+    letter-spacing: .08em;
+    animation: sm-rise 1s .6s both;
+  }
+
+  #sm-intro .sm-diya-button {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 128px;
+    height: 148px;
+    margin: 24px 0 12px;
+    padding: 0;
+    color: inherit;
+    border: 0;
+    outline-offset: 8px;
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    animation: sm-rise 1s .65s both;
+  }
+
+  #sm-intro .sm-flame {
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    width: 27px;
+    height: 43px;
+    border-radius: 75% 15% 65% 40%;
+    background: linear-gradient(35deg, #ff6a16, #ffe99a 60%, white);
+    box-shadow: 0 0 18px #ff9c37, 0 0 48px #ff8b3877;
+    transform: translateX(-50%) rotate(45deg) scale(.85);
+    transform-origin: 50% 90%;
+    animation: sm-flame 1.15s ease-in-out infinite alternate;
+    transition: transform .4s, opacity .4s;
+  }
+
+  #sm-intro .sm-flame::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 11px;
+    width: 10px;
+    height: 23px;
+    border-radius: 70% 20% 70% 40%;
+    background: #fff9d9;
+  }
+
+  #sm-intro .sm-bowl {
+    position: absolute;
+    bottom: 27px;
+    width: 89px;
+    height: 39px;
+    border-radius: 15% 15% 60% 60%;
+    background: linear-gradient(180deg, #ffe49b, #b56b22 42%, #66230f 85%);
+    box-shadow: 0 9px 24px #08010988, inset 0 3px 5px #fff1bc;
+    clip-path: polygon(0 0,100% 0,87% 66%,65% 100%,35% 100%,13% 66%);
+  }
+
+  #sm-intro .sm-diya-button::after {
+    content: "";
+    position: absolute;
+    bottom: 12px;
+    width: 102px;
+    height: 17px;
+    border-radius: 50%;
+    background: #ffb93a33;
+    filter: blur(8px);
+  }
+
+  #sm-intro .sm-tap {
+    margin: 0;
+    color: #f9d9a6;
+    font: 10px/1.5 Arial, sans-serif;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    animation: sm-pulse 1.8s infinite;
+  }
+
+  #sm-intro .sm-enter {
+    display: none;
+    margin-top: 26px;
+    padding: 15px 24px;
+    min-width: 210px;
+    border: 1px solid #ffdf9c;
+    border-radius: 2px;
+    background: linear-gradient(110deg, #f9d78b, #dba64c);
+    color: #45101a;
+    font: 600 11px/1.3 Arial, sans-serif;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 0 28px #ffc35b30;
+    transition: transform .25s, box-shadow .25s;
+  }
+
+  #sm-intro .sm-enter:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 38px #ffc35b66;
+  }
+
+  #sm-intro.sm-lit .sm-flame {
+    transform: translateX(-50%) rotate(45deg) scale(1.45);
+  }
+
+  #sm-intro.sm-lit .sm-tap { display: none; }
+
+  #sm-intro.sm-lit .sm-enter {
+    display: block;
+    animation: sm-rise .7s both;
+  }
+
+  #sm-intro .sm-skip {
+    position: absolute;
+    z-index: 5;
+    top: max(22px, env(safe-area-inset-top));
+    right: 20px;
+    padding: 10px 0 10px 12px;
+    border: 0;
+    background: transparent;
+    color: #f6dfbd;
+    font: 10px Arial, sans-serif;
+    letter-spacing: .12em;
+    cursor: pointer;
+    opacity: .8;
+  }
+
+  #sm-intro .sm-particle {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: var(--size, 3px);
+    height: var(--size, 3px);
+    border-radius: 50%;
+    background: #ffe6a2;
+    box-shadow: 0 0 9px #ffbf4b;
+    pointer-events: none;
+    animation: sm-float var(--duration, 7s) var(--delay, 0s) linear infinite;
+    opacity: 0;
+  }
+
+  #sm-intro .sm-petal {
+    position: absolute;
+    z-index: 2;
+    top: -30px;
+    left: var(--left, 50%);
+    width: 10px;
+    height: 16px;
+    border-radius: 90% 10% 80% 20%;
+    background: linear-gradient(135deg, #ffd9ad, #ce5262 65%, #8f1938);
+    opacity: 0;
+    pointer-events: none;
+    animation: sm-fall var(--duration, 7s) var(--delay, 0s) linear infinite;
+  }
+
+  #sm-intro.sm-lit .sm-particle { animation-duration: 3.5s; }
+
+  #sm-intro .sm-burst {
+    position: absolute;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ffe1a2;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sm-burst .85s ease-out forwards;
+  }
+
+  @keyframes sm-spin { to { transform: rotate(360deg); } }
+  @keyframes sm-breathe {
+    0%,100% { transform: scale(.88); opacity: .65; }
+    50% { transform: scale(1.12); opacity: 1; }
+  }
+  @keyframes sm-ring {
+    0%,100% { transform: scale(.96); opacity: .35; }
+    50% { transform: scale(1.04); opacity: .8; }
+  }
+  @keyframes sm-flame {
+    from { filter: brightness(.9); }
+    to { filter: brightness(1.35); }
+  }
+  @keyframes sm-pulse {
+    0%,100% { opacity: .5; }
+    50% { opacity: 1; }
+  }
+  @keyframes sm-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes sm-float {
+    0% { transform: translate(var(--x1), 105vh) scale(.4); opacity: 0; }
+    15% { opacity: var(--opacity, .8); }
+    85% { opacity: var(--opacity, .8); }
+    100% { transform: translate(var(--x2), -10vh) scale(1.2); opacity: 0; }
+  }
+  @keyframes sm-fall {
+    0% { transform: translate3d(0,-20px,0) rotate(0deg); opacity: 0; }
+    10% { opacity: .8; }
+    90% { opacity: .65; }
+    100% { transform: translate3d(var(--drift, 40px),110vh,0) rotate(650deg); opacity: 0; }
+  }
+  @keyframes sm-burst {
+    from { transform: translate(-50%,-50%) scale(.2); opacity: 1; }
+    to { transform: translate(-50%,-50%) scale(15); opacity: 0; }
+  }
+
+  @media (max-height: 650px) {
+    #sm-intro .sm-brand { margin-bottom: 12px; }
+    #sm-intro .sm-diya-button { margin: 12px 0 4px; transform: scale(.8); }
+    #sm-intro .sm-subtitle { margin-top: 7px; }
+    #sm-intro .sm-enter { margin-top: 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #sm-intro *, #sm-intro *::before, #sm-intro *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>
+
+<div id="sm-intro" role="dialog" aria-modal="true"
+     aria-label="Welcome to the Navratri experience">
+  <div class="sm-glow"></div>
+  <div class="sm-mandala"></div>
+  <div class="sm-ring"></div>
+
+  <button class="sm-skip" type="button">SKIP INTRO ↗</button>
+
+  <main class="sm-content">
+    <p class="sm-brand">✦ STORYMINT STUDIO ✦</p>
+    <p class="sm-eyebrow">A celebration of the divine feminine</p>
+    <h1 class="sm-title">शुभ नवरात्रि</h1>
+    <p class="sm-subtitle">Nine nights. Infinite blessings.</p>
+
+    <button class="sm-diya-button" type="button"
+            aria-label="Light the sacred diya">
+      <span class="sm-flame"></span>
+      <span class="sm-bowl"></span>
+    </button>
+
+    <p class="sm-tap">✧ Tap the diya to awaken the light ✧</p>
+
+    <button class="sm-enter" type="button">
+      Enter the divine experience&nbsp; ✦
+    </button>
+  </main>
+</div>
+
+<script>
+(() => {
+  const intro = document.getElementById("sm-intro");
+  if (!intro || intro.dataset.ready) return;
+  intro.dataset.ready = "true";
+
+  const diya = intro.querySelector(".sm-diya-button");
+  const enter = intro.querySelector(".sm-enter");
+  const skip = intro.querySelector(".sm-skip");
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  let closed = false;
+  let lit = false;
+
+  // Keep the animation lightweight on mobile.
+  const particleCount = reducedMotion ? 0 :
+    (window.innerWidth < 600 ? 22 : 38);
+  const petalCount = reducedMotion ? 0 :
+    (window.innerWidth < 600 ? 9 : 16);
+
+  for (let i = 0; i < particleCount; i++) {
+    const p = document.createElement("span");
+    p.className = "sm-particle";
+    p.style.setProperty("--size", (1 + Math.random() * 3) + "px");
+    p.style.setProperty("--x1", (Math.random() * 100 - 50) + "px");
+    p.style.setProperty("--x2", (Math.random() * 160 - 80) + "px");
+    p.style.setProperty("--duration", (5 + Math.random() * 8) + "s");
+    p.style.setProperty("--delay", (-Math.random() * 12) + "s");
+    p.style.setProperty("--opacity", (.3 + Math.random() * .6).toFixed(2));
+    p.style.left = (Math.random() * 100) + "%";
+    intro.appendChild(p);
+  }
+
+  for (let i = 0; i < petalCount; i++) {
+    const p = document.createElement("span");
+    p.className = "sm-petal";
+    p.style.setProperty("--left", (Math.random() * 100) + "%");
+    p.style.setProperty("--duration", (7 + Math.random() * 8) + "s");
+    p.style.setProperty("--delay", (-Math.random() * 14) + "s");
+    p.style.setProperty("--drift", (Math.random() * 140 - 70) + "px");
+    p.style.width = (7 + Math.random() * 6) + "px";
+    p.style.height = (11 + Math.random() * 8) + "px";
+    intro.appendChild(p);
+  }
+
+  function burst(x, y) {
+    if (reducedMotion) return;
+    const ring = document.createElement("span");
+    ring.className = "sm-burst";
+    ring.style.left = x + "px";
+    ring.style.top = y + "px";
+    intro.appendChild(ring);
+    ring.addEventListener("animationend", () => ring.remove(), { once: true });
+  }
+
+  function lightDiya() {
+    if (closed || lit) return;
+    lit = true;
+    intro.classList.add("sm-lit");
+
+    const rect = diya.getBoundingClientRect();
+    burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+    // A few extra sparks fly outward from the diya.
+    if (!reducedMotion) {
+      for (let i = 0; i < 14; i++) {
+        const spark = document.createElement("span");
+        spark.className = "sm-particle";
+        spark.style.left = (rect.left + rect.width / 2) + "px";
+        spark.style.top = (rect.top + 35) + "px";
+        spark.style.setProperty("--x1", "0px");
+        spark.style.setProperty("--x2", (Math.random() * 260 - 130) + "px");
+        spark.style.setProperty("--duration", "1.4s");
+        spark.style.style = "";
+        spark.style.animation = "sm-rise 1.2s ease-out forwards";
+        spark.style.setProperty("--size", (2 + Math.random() * 4) + "px");
+        intro.appendChild(spark);
+        spark.addEventListener("animationend", () => spark.remove(), { once: true });
+      }
+    }
+  }
+
+  function closeIntro() {
+    if (closed) return;
+    closed = true;
+    intro.classList.add("sm-exit");
+
+    // Restore focus/scroll and remove the overlay after its fade.
+    document.body.style.overflow = "";
+    window.setTimeout(() => intro.remove(), reducedMotion ? 50 : 1000);
+
+    // Scroll to the existing Nav Durga section, if present.
+    const target = document.querySelector("#roop");
+    if (target) {
+      window.setTimeout(() => {
+        target.scrollIntoView({
+          behavior: reducedMotion ? "auto" : "smooth",
+          block: "start"
+        });
+      }, reducedMotion ? 50 : 250);
+    }
+  }
+
+  diya.addEventListener("click", lightDiya);
+  enter.addEventListener("click", closeIntro);
+  skip.addEventListener("click", closeIntro);
+
+  // Optional keyboard support.
+  intro.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeIntro();
+  });
+
+  document.body.style.overflow = "hidden";
+})();
+</script>
+<!-- END STORYMINT STUDIO INTRO -->
+</body></html>
